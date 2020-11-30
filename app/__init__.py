@@ -27,7 +27,8 @@ def create_app(config_name):
     session["current_user"] = user.username
     return redirect('/feed')
     
-
-
+  @app.route('/feed', methods=['GET'])
+  def news_feed():
+    return render_template('feed.html')
 
   return app  

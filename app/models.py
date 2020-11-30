@@ -19,7 +19,7 @@ class User(db.Model):
 
   @staticmethod
   def get_all():
-      return Bucketlist.query.all()
+      return User.query.all()
 
   def delete(self):
       db.session.delete(self)
