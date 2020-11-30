@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, session
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 from instance.config import app_config
 
@@ -29,6 +30,16 @@ def create_app(config_name):
     
   @app.route('/feed', methods=['GET'])
   def news_feed():
-    return render_template('feed.html')
+    from app.models import Peep
+    peeps = Peep.get_all()
+    return render_template('feed.html', peeps=peeps)
+
+  @app.route('/new_peep', methods=['POST'])
+  def new_peep():
+    from app.models import Peep
+    peep = Peep(session['current_user'], request.form['new_peep'])
+    peep.save()
+    return redirect('feed')
+
 
   return app  

@@ -23,7 +23,7 @@ class UserTestCase(unittest.TestCase):
 
   def test_user_signup(self):
     res = self.client.post('/signup', data=self.user)
-    print(res.data)
+    # print(res.keys)
     self.assertIn(b"Redirect", res.data)
     self.assertEqual(res.status_code, 302)
     
