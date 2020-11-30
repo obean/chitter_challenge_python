@@ -1,6 +1,7 @@
 from app import db
 import time
 from datetime import datetime
+from sqlalchemy import desc
 
 class User(db.Model):
   """ User Model """
@@ -37,7 +38,7 @@ class Peep(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(25), unique=False, nullable=False)
   peep = db.Column(db.String(240), unique=False, nullable=False)
-  time = db.Column(db.DateTime(), default=time.gmtime())   #datetime.now().strftime("#%Y-%m-%d:%H:%M:%S")) 
+  time = db.Column(db.DateTime(), default=datetime.now()) #.strftime("#%Y-%m-%d:%H:%M:%S")) 
 
   def __init__(self, username, peep):
       """initialize with name."""
@@ -52,7 +53,7 @@ class Peep(db.Model):
 
   @staticmethod
   def get_all():
-      return Peep.query.order_by(Peep.time).all()
+      return Peep.query.order_by(Peep.time.desc()).all()
 
   def delete(self):
       db.session.delete(self)
