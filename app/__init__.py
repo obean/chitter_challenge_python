@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, session
+from flask import Flask, render_template, request, redirect, flash, session, Markup
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 
@@ -27,7 +27,20 @@ def create_app(config_name):
     user.save()
     session["current_user"] = user.username
     return redirect('/feed')
-    
+
+  @app.route('/signin', methods=["POST"])
+  def signin():
+    user = User.find_one(request.form['username'])
+    if (bool(user) == False):
+      flash('incorrect username, try again')
+      return redirect('/')
+    elif user.password == request.form['password']:
+      session["current_user"] = user.username
+      return redirect('/feed')
+    else:  
+      flash('incorrect password, try again')
+      return redirect('/')
+
   @app.route('/feed', methods=['GET'])
   def news_feed():
     from app.models import Peep
@@ -36,10 +49,19 @@ def create_app(config_name):
 
   @app.route('/new_peep', methods=['POST'])
   def new_peep():
-    from app.models import Peep
-    peep = Peep(session['current_user'], request.form['new_peep'])
-    peep.save()
-    return redirect('feed')
+    if bool(session.get('current_user')):
+      from app.models import Peep
+      peep = Peep(session['current_user'], request.form['new_peep'])
+      peep.save()
+      return redirect('feed')
+    else: 
+      flash(Markup('You must be logged in to post, <a href="/" >click here to log in </a>'))
+      return redirect('feed')  
+
+  @app.route('/logout', methods=['POST'])
+  def logout():
+    session.clear()
+    return redirect('/')
 
 
   return app  

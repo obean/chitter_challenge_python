@@ -23,6 +23,9 @@ class User(db.Model):
   def get_all():
       return User.query.all()
 
+  def find_one(user):
+    return User.query.filter_by(username=user).first()    
+
   def delete(self):
       db.session.delete(self)
       db.session.commit()
@@ -38,14 +41,12 @@ class Peep(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(25), unique=False, nullable=False)
   peep = db.Column(db.String(240), unique=False, nullable=False)
-  time = db.Column(db.DateTime(), default=datetime.now()) #.strftime("#%Y-%m-%d:%H:%M:%S")) 
+  time = db.Column(db.DateTime(), default=datetime.now())
 
   def __init__(self, username, peep):
       """initialize with name."""
-      # self.id = id
       self.username = username
       self.peep = peep
-      #self.time = datetime
 
   def save(self):
       db.session.add(self)
