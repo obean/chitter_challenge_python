@@ -8,9 +8,10 @@ class User(db.Model):
   username = db.Column(db.String(25), unique=True, nullable=False)
   password = db.Column(db.String(), nullable=False)
 
-  def __init__(self, name):
+  def __init__(self, username, password):
         """initialize with name."""
-        self.name = name
+        self.username = username
+        self.password = password
 
   def save(self):
       db.session.add(self)

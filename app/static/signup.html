@@ -1,0 +1,22 @@
+HELLO WORLD
+sign up
+<form class="enter-details" action="/signup" method="POST">
+  <input type="text" name="username" maxlength="15">
+  <input type="password" name="password" minlength="6">
+  <input type="submit" value="submit">
+</form>
+
+sign in
+<form class="enter-details" action="/signin" method="POST">
+  <input type="text" name="username" maxlength="15">
+  <input type="password" name="password" minlength="6">
+  <input type="submit" value="submit">
+</form>
+
+{% with messages = get_flashed_messages()%}
+{% if messages %}
+{% for message in messages %}
+  <p style="color:red;"> {{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
