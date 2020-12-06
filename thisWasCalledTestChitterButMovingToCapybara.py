@@ -1,7 +1,7 @@
 import unittest
 import os
 import json
-
+from flask import Flask, render_template, request, redirect, flash, session, Markup
 from app import create_app, db, models
 
 class UserTestCase(unittest.TestCase):
@@ -10,6 +10,7 @@ class UserTestCase(unittest.TestCase):
     self.app.secret_key = os.getenv('SECRET')
     self.client = self.app.test_client()
     self.user = {'username': 'testUser', 'password': 'testUser'}
+    self.peep = {'username': "mathew", "new_peep": "this is a peep"}
 
     with self.app.app_context():
       db.create_all()
@@ -21,11 +22,21 @@ class UserTestCase(unittest.TestCase):
     self.assertIn( b"sign up\n<form", res.data)
     self.assertIn( b"sign in\n<form", res.data)
 
+  def register(self, username, password):
+    return self.app.post('\signup', data=dict(
+      username= 
+    ))  
+
   def test_user_signup(self):
     res = self.client.post('/signup', data=self.user)
     # print(res.keys)
     self.assertIn(b"Redirect", res.data)
     self.assertEqual(res.status_code, 302)
+
+  # def test_create_peep(self):
+  #   res = self.client.post('/new_peep', data=self.peep)  
+  #   self.assertEqual(res.status_code, 302)
+  #   self.assertEqual(request.path, url_for('feed'))
     
     
 
