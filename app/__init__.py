@@ -56,7 +56,7 @@ def create_app(config_name):
       return redirect('feed')
     else: 
       flash(Markup('You must be logged in to post, <a href="/" >click here to log in </a>'))
-      return redirect('feed')  
+      return redirect('/feed')  
 
   @app.route('/logout', methods=['POST'])
   def logout():
