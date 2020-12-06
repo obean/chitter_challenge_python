@@ -20,8 +20,8 @@ Peeps:
 <div id="peeps_div">
 {% for peep in peeps %}
 <div class="peep_div" id="peep{{peep.id}}"></div>
-<p>{{peep.username}} </p>
-<p>{{peep.peep}}</p>
+<p class="peeper">{{peep.username}} </p>
+<p class="peep">{{peep.peep}}</p>
 <p>{{peep.time}}</p>
 {% endfor %}
 </div>

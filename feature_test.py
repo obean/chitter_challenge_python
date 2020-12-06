@@ -104,6 +104,8 @@ class CapybaraTestCase(unittest.TestCase):
     self.page.fill_in("new_peep", value="this is the second test peep")
     self.page.click_button("peep it!")
     capybara.match = "first"
+    assert self.page.find(".peep").has_text('this is the second test peep')
+    assert not self.page.find(".peep").has_text('this is the first test peep')
 
     if __name__ =="__main__":
       unittest.main()    
