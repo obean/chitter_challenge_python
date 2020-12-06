@@ -1,23 +1,9 @@
 import unittest
 import os
-# import json
-#  1 from flask import Flask, render_template, request, redirect, flash, session, Markup
 from app import create_app, db, models
 import capybara
 import capybara.dsl
 
-#pytest_plugins = ['capybara.pytest_plugin']
-
-
-# def test_home_page(page):
-#   page.visit('/')
-
-
-
-# print('potato')
-# # import capybara
-# # import capybara.dsl
-# import unittest
 
 class CapybaraTestCase(unittest.TestCase):
   def setUp(self):
@@ -106,6 +92,16 @@ class CapybaraTestCase(unittest.TestCase):
     capybara.match = "first"
     assert self.page.find(".peep").has_text('this is the second test peep')
     assert not self.page.find(".peep").has_text('this is the first test peep')
+
+  def test_logout_button_on_feed_if_logged_in(self):
+    self.sign_in()
+    assert self.page.has_button("Log Out")
+    assert not self.page.has_button("Sign up")
+
+  def test_signup_button_on_feed_if_logged_out(self):
+    self.page.visit('/feed')
+    assert  self.page.has_button("Sign Up")
+    assert not self.page.has_button("Log Out")
 
     if __name__ =="__main__":
       unittest.main()    

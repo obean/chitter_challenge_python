@@ -1,6 +1,12 @@
+{% if session['current_user'] %}
 <form action='/logout' method="post">
   <input type='submit' name='logout' value="Log Out" >
 </form>
+{% else:%}
+<form action='/' method="get">
+<input type="submit" name='Sign Up' value="Sign Up">
+</form>
+{% endif %}
 
 Create Peep:
 <form name="new_peep" action='/new_peep' method="POST">
