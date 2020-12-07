@@ -8,7 +8,7 @@
 - in Postgres, run each command in the DatabaseSetup.SQL file to set up databases.
 
 ```
-$ python -m virtualenv venv
+$ python -m  venv .
 ```
 - activate the virtual environment
 ```
