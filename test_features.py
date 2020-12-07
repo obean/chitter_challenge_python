@@ -14,7 +14,6 @@ class CapybaraTestCase(unittest.TestCase):
     self.page = capybara.dsl.page
     capybara.app = self.app
     models.User('testUser','testUserPassword').save()
-   # db.session.add(self.user).commit()
     with self.app.app_context():
       db.create_all()
       
@@ -24,17 +23,10 @@ class CapybaraTestCase(unittest.TestCase):
     self.page.find("#sign_in_box").fill_in("password", value="testUserPassword")
     self.page.find("#sign_in_box").click_button('submit')
         
-
   def tearDown(self):
     capybara.reset_sessions() 
-   # db.session.query(models.User).delete() 
     models.User.query.delete()
     db.session.commit()
-    
-    
-    
-
-
 
   def test_valid_signup(self):
     """ user can signup """
