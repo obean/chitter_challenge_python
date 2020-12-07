@@ -5,6 +5,8 @@
 ## Running Chitter 
 - clone this repository
 - set up a virtual environment (you may need to install virtualenv)
+- in Postgres, run each command in the DatabaseSetup.SQL file to set up databases.
+
 ```
 $ python -m virtualenv venv
 ```
