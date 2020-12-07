@@ -21,3 +21,8 @@ $ pip install
 ```
 $ flask run
 ```
+
+## Running tests
+```
+$ python -m unittest
+```
